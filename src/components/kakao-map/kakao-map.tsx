@@ -122,13 +122,13 @@ export default function KakaoMap({
                 </button>
               </div>
             </div>
-            <div className="absolute left-[74.5px] top-[24px]  w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white -bottom-2 transform -translate-x-1/2 z-50 shadow-lg"></div>
+            <div className="absolute left-[74.5px] top-[23px]  w-5 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white -bottom-2 transform -translate-x-1/2 z-50 shadow-lg"></div>
           </MapMarker>
         )}
       </Map>
 
       {/* ##### 지도(일반지도, 스카이뷰)타입 컨트롤 ##### */}
-      <div className="absolute top-[10px] right-[10px] overflow-hidden w-[130px] h-[30px] z-10 text-xs font-sans border border-gray-400 rounded-md flex shadow-lg">
+      <div className="absolute top-5 right-5 overflow-hidden w-[130px] h-[32px] z-10 text-xs font-sans border border-gray-400 rounded-md flex shadow-lg">
         <span
           className={`w-1/2 h-full flex items-center justify-center cursor-pointer ${
             mapType === "roadmap"
@@ -154,7 +154,7 @@ export default function KakaoMap({
       </div>
 
       {/* ##### 지도 확대, 축소 컨트롤 ##### */}
-      <div className="absolute top-[50px] right-2.5 w-9 h-20 z-10 bg-gray-100 rounded-md flex flex-col items-center overflow-hidden shadow-lg border border-gray-400">
+      <div className="absolute top-20 right-5 w-9 h-20 z-10 bg-gray-100 rounded-md flex flex-col items-center overflow-hidden shadow-lg border border-gray-400">
         <span
           onClick={zoomIn} // 지도 축소 클릭 시 호출
           className="w-full h-1/2 flex items-center justify-center cursor-pointer border-b border-gray-400"
