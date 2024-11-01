@@ -1,0 +1,186 @@
+// 울산
+{
+  "documents": [
+    {
+      "address": {
+        "address_name": "울산",
+        "b_code": "3100000000",
+        "h_code": "3100000000",
+        "main_address_no": "",
+        "mountain_yn": "N",
+        "region_1depth_name": "울산",
+        "region_2depth_name": "",
+        "region_3depth_h_name": "",
+        "region_3depth_name": "",
+        "sub_address_no": "",
+        "x": "129.311603446508",
+        "y": "35.5395955247058"
+      },
+      "address_name": "울산",
+      "address_type": "REGION",
+      "road_address": null,
+      "x": "129.311603446508",
+      "y": "35.5395955247058"
+    }
+  ],
+  "meta": {
+    "is_end": true,
+    "pageable_count": 1,
+    "total_count": 1
+  }
+}
+
+// 울산 남구
+{
+  "documents": [
+    {
+      "address": {
+        "address_name": "울산 남구",
+        "b_code": "3114000000",
+        "h_code": "3114000000",
+        "main_address_no": "",
+        "mountain_yn": "N",
+        "region_1depth_name": "울산",
+        "region_2depth_name": "남구",
+        "region_3depth_h_name": "",
+        "region_3depth_name": "",
+        "sub_address_no": "",
+        "x": "129.330091790832",
+        "y": "35.5438097037164"
+      },
+      "address_name": "울산 남구",
+      "address_type": "REGION",
+      "road_address": null,
+      "x": "129.330091790832",
+      "y": "35.5438097037164"
+    }
+  ],
+  "meta": {
+    "is_end": true,
+    "pageable_count": 1,
+    "total_count": 1
+  }
+}
+
+
+// 울산 남구 달동
+{
+  "documents": [
+    {
+      "address": {
+        "address_name": "울산 남구 달동",
+        "b_code": "3114010500",
+        "h_code": "3114056000",
+        "main_address_no": "",
+        "mountain_yn": "N",
+        "region_1depth_name": "울산",
+        "region_2depth_name": "남구",
+        "region_3depth_h_name": "달동",
+        "region_3depth_name": "달동",
+        "sub_address_no": "",
+        "x": "129.316532962709",
+        "y": "35.5363579790753"
+      },
+      "address_name": "울산 남구 달동",
+      "address_type": "REGION",
+      "road_address": null,
+      "x": "129.316532962709",
+      "y": "35.5363579790753"
+    }
+  ],
+  "meta": {
+    "is_end": true,
+    "pageable_count": 1,
+    "total_count": 1
+  }
+}
+
+// 울산 남구 달동 1347-1 검색
+{
+  "documents": [
+    {
+      "address": {
+        "address_name": "울산 남구 달동 1347-1",
+        "b_code": "3114010500",
+        "h_code": "3114057000",
+        "main_address_no": "1347",
+        "mountain_yn": "N",
+        "region_1depth_name": "울산",
+        "region_2depth_name": "남구",
+        "region_3depth_h_name": "삼산동",
+        "region_3depth_name": "달동",
+        "sub_address_no": "1",
+        "x": "129.330040456184",
+        "y": "35.5406644685444"
+      },
+      "address_name": "울산 남구 달동 1347-1",
+      "address_type": "REGION_ADDR",
+      "road_address": {
+        "address_name": "울산 남구 돋질로220번길 15",
+        "building_name": "",
+        "main_building_no": "15",
+        "region_1depth_name": "울산",
+        "region_2depth_name": "남구",
+        "region_3depth_name": "달동",
+        "road_name": "돋질로220번길",
+        "sub_building_no": "",
+        "underground_yn": "N",
+        "x": "129.330028645965",
+        "y": "35.5406906473583",
+        "zone_no": "44703"
+      },
+      "x": "129.330040456184",
+      "y": "35.5406644685444"
+    }
+  ],
+  "meta": {
+    "is_end": true,
+    "pageable_count": 1,
+    "total_count": 1
+  }
+}
+
+// 돋질로 220번길 15 검색
+{
+  "documents": [
+    {
+      "address": {
+        "address_name": "울산 남구 달동 1347-1",
+        "b_code": "3114010500",
+        "h_code": "3114057000",
+        "main_address_no": "1347",
+        "mountain_yn": "N",
+        "region_1depth_name": "울산",
+        "region_2depth_name": "남구",
+        "region_3depth_h_name": "삼산동",
+        "region_3depth_name": "달동",
+        "sub_address_no": "1",
+        "x": "129.330028645965",
+        "y": "35.5406906473583"
+      },
+      "address_name": "울산 남구 돋질로220번길 15",
+      "address_type": "ROAD_ADDR",
+      "road_address": {
+        "address_name": "울산 남구 돋질로220번길 15",
+        "building_name": "",
+        "main_building_no": "15",
+        "region_1depth_name": "울산",
+        "region_2depth_name": "남구",
+        "region_3depth_name": "달동",
+        "road_name": "돋질로220번길",
+        "sub_building_no": "",
+        "underground_yn": "N",
+        "x": "129.330028645965",
+        "y": "35.5406906473583",
+        "zone_no": "44703"
+      },
+      "x": "129.330028645965",
+      "y": "35.5406906473583"
+    }
+  ],
+  "meta": {
+    "is_end": true,
+    "pageable_count": 1,
+    "total_count": 1
+  }
+}
