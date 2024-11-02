@@ -13,7 +13,7 @@ export default function BuildingInfoUI({
   kakaoAddress: KakaoAddressSearchResponse;
   query: string;
 }) {
-  // ##### 지도 : 위치 선택시 선택된 위치 정보 상태 관리
+  // ##### 📍 : 위치 선택시 선택된 위치 정보 상태 관리
   const [selectedLocation, setSelectedLocation] = useState<{
     lat: number;
     lng: number;
@@ -30,7 +30,7 @@ export default function BuildingInfoUI({
         <SearchBarList
           kakaoAddress={kakaoAddress}
           query={query}
-          setSelectedLocation={setSelectedLocation}
+          setSelectedLocation={setSelectedLocation} // 📍 사용자가 선택한 위치 정보를 지도에 표시하기 위해 상위 컴포넌트로 전달
         />
       </div>
 
@@ -38,9 +38,12 @@ export default function BuildingInfoUI({
       <div className="w-full h-screen">
         <KakaoMap
           selectedLocation={selectedLocation}
-          setSelectedLocation={setSelectedLocation}
+          // setSelectedLocation={setSelectedLocation}
         />
       </div>
     </div>
   );
 }
+
+// 📍
+// 🗺️

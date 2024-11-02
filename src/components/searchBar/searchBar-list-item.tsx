@@ -4,14 +4,8 @@ import { Document } from "@/types";
 
 export default function SearchBarListItem({
   document,
-  onSelectLocation,
 }: {
   document: Document;
-  onSelectLocation: (location: {
-    lat: number;
-    lng: number;
-    info: string | JSX.Element;
-  }) => void;
 }) {
   // ##### 주소 데이터 구조 분해 할당으로 추출
   const { address, address_name, road_address, address_type } = document;
@@ -56,26 +50,8 @@ export default function SearchBarListItem({
     return null;
   };
 
-  // ##### 지도 : 리스트 item 클릭 시 선택된 위치 정보 업데이트
-  // (선택된 위치 전달하는 콜백 함수 )
-  const handleLocationClick = () => {
-    if (address) {
-      const selectedData = {
-        lat: parseFloat(address.y),
-        lng: parseFloat(address.x),
-        info: renderAddress() || "", // JSX 또는 문자열로 전달 가능
-      };
-
-      onSelectLocation(selectedData);
-    }
-  };
-
   return (
-    <div
-      onClick={handleLocationClick} // ** 카카오맵 : 위치 클릭 시 선택된 위치 정보를 전달
-      className="cursor-pointer 
-        flex justify-between items-start w-full p-4 hover:bg-[#eff7ff] border-b border-gray-300 first:pt-7"
-    >
+    <div>
       <div className="flex gap-2">
         {/* <LocationOnOutlined
           className="text-2xl text-gray-400"
