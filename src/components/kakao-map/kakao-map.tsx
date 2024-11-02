@@ -1,5 +1,4 @@
 "use client";
-
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useRef, useState, useEffect } from "react";
 import useKakaoLoader from "./use-kakao-loader";
@@ -11,63 +10,54 @@ interface Location {
 }
 
 interface KakaoMapProps {
-  selectedLocation: Location | null; // 📍 선택된 위치 정보를 props로 전달받음
+  selectedLocation: Location | null;
+  setSelectedLocation: (location: Location | null) => void;
 }
 
-export default function KakaoMap({ selectedLocation }: KakaoMapProps) {
+export default function KakaoMap({
+  selectedLocation,
+  setSelectedLocation,
+}: KakaoMapProps) {
   // ##### 카카오 지도 API를 로드
   useKakaoLoader();
 
   // ### 지도 레퍼런스 및 상태 관리
-  const mapRef = useRef<kakao.maps.Map>(null); // 지도 레퍼런스
+  const mapRef = useRef<kakao.maps.Map>(null);
+
   // ### 지도 타입 상태 관리 : 일반지도 또는 스카이뷰
   const [mapType, setMapType] = useState<"roadmap" | "skyview">("roadmap");
+
   // ### 사용자 위치 상태 관리
   const [userLocation, setUserLocation] = useState<{
     lat: number;
     lng: number;
   } | null>(null); // 사용자 위치 상태 관리
 
-  // ### 사용자 기본 위치 또는 선택된 위치에 따라 지도 중심을 설정하는 함수
+  // ### 사용자 기본 위치를 가져오는 함수
   useEffect(() => {
-    if (selectedLocation && mapRef.current) {
-      // 📍 선택된 위치가 있을 때, 지도 중심을 해당 위치로 설정
-      mapRef.current.setCenter(
-        new kakao.maps.LatLng(selectedLocation.lat, selectedLocation.lng)
-      );
-    } else if (navigator.geolocation && !selectedLocation) {
-      // 📍 선택된 위치가 없고 사용자 위치 사용이 가능할 때, 기본 위치 설정
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          // 위치 성공적으로 가져온 경우
-          const userLatLng = new kakao.maps.LatLng(
-            position.coords.latitude,
-            position.coords.longitude
-          );
           setUserLocation({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           });
-          mapRef.current?.setCenter(userLatLng);
         },
         () => {
-          // 위치 가져오기 실패 시 기본 위치 설정 (울산)
-          console.error(
-            "사용자 위치를 가져오지 못했습니다. 기본 위치를 울산으로 설정했습니다."
-          );
-          const defaultLatLng = new kakao.maps.LatLng(35.538228, 129.329897);
-          setUserLocation({ lat: 35.538228, lng: 129.329897 });
-          mapRef.current?.setCenter(defaultLatLng);
+          setUserLocation({ lat: 35.538228, lng: 129.329897 }); // 기본 위치 (울산)
         }
       );
-    } else if (!navigator.geolocation) {
-      // 📍 브라우저가 Geolocation을 지원하지 않을 때 기본 위치를 서울로 설정
-      console.error(
-        "이 브라우저는 지리적 위치를 지원하지 않습니다. 기본 위치를 서울로 설정합니다."
+    } else {
+      setUserLocation({ lat: 37.5665, lng: 126.978 }); // 기본 위치 (서울)
+    }
+  }, []);
+
+  // ### 선택된 위치가 있을 경우, 해당 위치로 지도 중심 이동
+  useEffect(() => {
+    if (selectedLocation && mapRef.current) {
+      mapRef.current.setCenter(
+        new kakao.maps.LatLng(selectedLocation.lat, selectedLocation.lng)
       );
-      const seoulLatLng = new kakao.maps.LatLng(37.5665, 126.978);
-      setUserLocation({ lat: 37.5665, lng: 126.978 });
-      mapRef.current?.setCenter(seoulLatLng);
     }
   }, [selectedLocation]);
 
@@ -81,6 +71,7 @@ export default function KakaoMap({ selectedLocation }: KakaoMapProps) {
       <Map
         id="map"
         center={
+          selectedLocation || // 선택된 위치가 없으면 기본 사용자 위치를 사용
           userLocation || {
             lat: 35.538228,
             lng: 129.329897, // 기본 좌표 (사용자 위치가 없을 경우)
@@ -104,17 +95,11 @@ export default function KakaoMap({ selectedLocation }: KakaoMapProps) {
               {selectedLocation.info}
 
               {/* ##### 주소 출력 추가 UI ##### */}
-              {/* <div className="flex gap-2 mt-4">
+              <div className="flex gap-2 mt-4">
                 <button className="border border-gray-300 px-3 py-1 text-xs font-medium rounded-md bg-white">
-                  기본정보
+                  동작 부분 추가 예정
                 </button>
-                <button className="border border-gray-300 px-3 py-1 text-xs font-medium rounded-md bg-white">
-                  토지정보
-                </button>
-                <button className="border border-gray-300 px-3 py-1 text-xs font-medium rounded-md bg-white">
-                  건축물정보
-                </button>
-              </div> */}
+              </div>
             </div>
             <div className="absolute left-[74.5px] top-[23px]  w-5 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white -bottom-2 transform -translate-x-1/2 z-50 shadow-lg"></div>
           </MapMarker>

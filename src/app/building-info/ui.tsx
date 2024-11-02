@@ -4,7 +4,7 @@ import KakaoMap from "@/components/kakao-map/kakao-map";
 import SearchBarInput from "@/components/searchBar/searchBar-input";
 import SearchBarList from "@/components/searchBar/searchBar-list";
 import { KakaoAddressSearchResponse } from "@/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function BuildingInfoUI({
   kakaoAddress,
@@ -19,6 +19,11 @@ export default function BuildingInfoUI({
     lng: number;
     info: string | JSX.Element;
   } | null>(null);
+
+  // ### 새로 고침 시 selectedLocation을 초기화
+  useEffect(() => {
+    setSelectedLocation(null);
+  }, []);
 
   return (
     <div className="flex w-full h-screen">
@@ -38,7 +43,7 @@ export default function BuildingInfoUI({
       <div className="w-full h-screen">
         <KakaoMap
           selectedLocation={selectedLocation}
-          // setSelectedLocation={setSelectedLocation}
+          setSelectedLocation={setSelectedLocation}
         />
       </div>
     </div>

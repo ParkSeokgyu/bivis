@@ -1,5 +1,4 @@
 "use client";
-
 import { useRouter } from "next/navigation";
 import SearchBarListItem from "./searchBar-list-item";
 import { KakaoAddressSearchResponse } from "@/types";
@@ -7,6 +6,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { fetchMoreKakaoAddress } from "@/app/building-info/page";
 import { Button } from "@material-tailwind/react";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { renderAddress } from "@/utils/addressUtils";
 
 export default function SearchBarList({
   kakaoAddress,
@@ -42,20 +42,21 @@ export default function SearchBarList({
     setIsLastPage(kakaoAddress.meta.total_count <= 15); // 15개 이하인 경우 마지막 페이지로 설정
 
     // 첫 번째 항목을 하이라이트
-    if (
-      kakaoAddress.documents.length > 0 &&
-      kakaoAddress.documents[0].address
-    ) {
+    // 📍 첫 번째 위치를 초기 마커 위치로 설정
+    if (kakaoAddress.documents.length > 0) {
+      const firstDocument = kakaoAddress.documents[0];
       setHighlightedIndex(0);
-      setSelectedLocation({
-        lat: parseFloat(kakaoAddress.documents[0].address.y),
-        lng: parseFloat(kakaoAddress.documents[0].address.x),
-        info: kakaoAddress.documents[0].address_name,
-      }); // 📍 첫 번째 위치를 초기 마커 위치로 설정
+      if (firstDocument.address) {
+        setSelectedLocation({
+          lat: parseFloat(firstDocument.address.y),
+          lng: parseFloat(firstDocument.address.x),
+          info: renderAddress(firstDocument) || "", // 초기 info 값을 renderAddress로 설정
+        });
+      }
     }
   }, [kakaoAddress]);
 
-  // ###### 검색어 리셋 핸들러 #####
+  // ###### 검색어 리셋 핸들러
   const handleClearSearch = () => {
     router.push("building-info"); // 검색어 초기화
   };
@@ -155,29 +156,20 @@ export default function SearchBarList({
 
       {/* ##### 주소 리스트 출력 ##### */}
       {address.documents.map((document, index) => (
-        <div
+        <SearchBarListItem
           key={index}
-          onClick={() => {
-            if (document.address) {
-              // 📍 document.address가 존재하는지 확인
-              setHighlightedIndex(index); // 항목 클릭 시 하이라이트 업데이트
-              setSelectedLocation({
-                lat: parseFloat(document.address.y),
-                lng: parseFloat(document.address.x),
-                info: document.address_name,
-              }); // 📍 선택된 위치 설정
-            }
+          document={document}
+          isHighlighted={index === highlightedIndex}
+          setSelectLocation={(location) => {
+            setSelectedLocation(location); // 지도 위치 설정
+            setHighlightedIndex(index); // 하이라이트 업데이트
           }}
-          className={`p-4 border-b border-gray-300 first:pt-7 ${
-            index === highlightedIndex ? "bg-[#eff7ff]" : "hover:bg-[#eff7ff]"
-          }`}
-        >
-          <SearchBarListItem document={document} />
-        </div>
+        />
       ))}
 
-      {/* ##### 주소 더보기 버튼 + 새로고침시 버튼 안보이게 추가 ##### */}
-      {!isLastPage && address.meta.total_count > address.documents.length && (
+      {/* ##### 주소 더보기 버튼 ##### */}
+      {/* 더보기 버튼이 첫 페이지 로드 이후 보이지 않도록 조건 추가 */}
+      {!isLastPage && address.documents.length > 15 && (
         <div className="flex justify-center my-4 mx-4">
           <Button
             onClick={onLoadMoreClick}
