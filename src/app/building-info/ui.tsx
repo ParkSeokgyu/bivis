@@ -3,8 +3,14 @@
 import KakaoMap from "@/components/kakao-map/kakao-map";
 import SearchBarInput from "@/components/searchBar/searchBar-input";
 import SearchBarList from "@/components/searchBar/searchBar-list";
-import { KakaoAddressSearchResponse } from "@/types";
+import {
+  kakaoAddressState,
+  selectedAddressLocationState,
+} from "@/recoil/atoms";
+import { KakaoAddressSearchResponse } from "@/utils/types";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 
 export default function BuildingInfoUI({
   kakaoAddress,
@@ -13,17 +19,23 @@ export default function BuildingInfoUI({
   kakaoAddress: KakaoAddressSearchResponse;
   query: string;
 }) {
-  // ##### 📍 : 위치 선택시 선택된 위치 정보 상태 관리
-  const [selectedLocation, setSelectedLocation] = useState<{
-    lat: number;
-    lng: number;
-    info: string | JSX.Element;
-  } | null>(null);
+  const [, setKakaoAddress] = useRecoilState(kakaoAddressState); // ★
+  const [, setselectedAddressLocation] = useRecoilState(
+    selectedAddressLocationState
+  ); // ★
 
-  // ### 새로 고침 시 selectedLocation을 초기화
   useEffect(() => {
-    setSelectedLocation(null);
-  }, []);
+    setKakaoAddress(kakaoAddress);
+    setselectedAddressLocation(null);
+  }, [kakaoAddress, setKakaoAddress, setselectedAddressLocation]);
+
+  // // ### 새로고침 시 리셋을 위한 라우터 객체 생성
+  // const router = useRouter(); // ★ 추가
+  // // 새로고침 시 selectedLocation과 query를 초기화
+  // useEffect(() => {
+  //   setSelectedLocation(null); // 상태 초기화
+  //   router.replace("/building-info"); // URL 초기화
+  // }, [router]);
 
   return (
     <div className="flex w-full h-screen">
@@ -32,19 +44,12 @@ export default function BuildingInfoUI({
         <SearchBarInput />
 
         {/* ##### 주소검색 결과 리스트 영역 */}
-        <SearchBarList
-          kakaoAddress={kakaoAddress}
-          query={query}
-          setSelectedLocation={setSelectedLocation} // 📍 사용자가 선택한 위치 정보를 지도에 표시하기 위해 상위 컴포넌트로 전달
-        />
+        <SearchBarList query={query} />
       </div>
 
       {/* ##### 지도 영역 ##### */}
       <div className="w-full h-screen">
-        <KakaoMap
-          selectedLocation={selectedLocation}
-          setSelectedLocation={setSelectedLocation}
-        />
+        <KakaoMap />
       </div>
     </div>
   );

@@ -16,6 +16,13 @@ export default function SearchBarInput() {
     setSearch(q || ""); // ### q 값이 있으면 그 값을 검색어 상태에 저장, 없으면 빈 문자열로 초기화
   }, [q]); // ### q 값이 변경될 때마다 useEffect가 실행됨
 
+  // ★ 새로고침 시 검색어 리셋을 위해 쿼리스트링 제거
+  useEffect(() => {
+    if (!q) {
+      router.replace("/building-info"); // 쿼리스트링 제거
+    }
+  }, [q, router]);
+
   // ### 검색어가 입력될 때마다 호출되는 함수
   const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value); // # 입력된 검색어를 상태에 저장

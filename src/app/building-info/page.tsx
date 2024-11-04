@@ -1,11 +1,12 @@
 import BuildingInfoUI from "./ui";
 
-// ##### 초기 카카오 주소 검색 API 호출 함수
+////////////////////////////////////////////////
+// ##### 초기 카카오 주소 검색 API 호출 함수 #####
 async function fetchKakaoAddress(query: string) {
   const response = await fetch(
     `https://dapi.kakao.com/v2/local/search/address.json?query=${encodeURIComponent(
       query
-    )}&size=15&page=1`,
+    )}&size=30&page=1`,
     {
       method: "GET",
       headers: {
@@ -20,12 +21,13 @@ async function fetchKakaoAddress(query: string) {
   return response.json();
 }
 
-// ##### 더 많은 주소를 가져오는 카카오 주소 검색 API 호출 함수
+/////////////////////////////////////////////////////////////////
+// ##### 더 많은 주소를 가져오는 카카오 주소 검색 API 호출 함수 #####
 export async function fetchMoreKakaoAddress(query: string, page: number = 1) {
   const response = await fetch(
     `https://dapi.kakao.com/v2/local/search/address.json?query=${encodeURIComponent(
       query
-    )}&size=15&page=${page}`,
+    )}&size=30&page=${page}`,
     {
       method: "GET",
       headers: {
@@ -40,7 +42,8 @@ export async function fetchMoreKakaoAddress(query: string, page: number = 1) {
   return response.json();
 }
 
-// ##### 주소 검색 결과 페이지
+///////////////////////////////////
+// ##### 주소 검색 결과 페이지 #####
 export default async function BuildingInfo({
   searchParams,
 }: {
