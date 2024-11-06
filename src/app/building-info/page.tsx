@@ -52,11 +52,7 @@ export default async function BuildingInfo({
   const { q } = await searchParams;
   const kakaoAddress = await fetchKakaoAddress(q);
 
-  return (
-    <div>
-      <BuildingInfoUI kakaoAddress={kakaoAddress} query={q} />
-    </div>
-  );
+  return <BuildingInfoUI kakaoAddress={kakaoAddress} query={q} />;
 }
 
 // ********************************************************************************************************************************************************************************/

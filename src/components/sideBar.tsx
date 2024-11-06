@@ -17,7 +17,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <header className="min-w-20 h-screen bg-white border-r border-gray-300 flex flex-col justify-between">
+    <header className="min-w-20 bg-white border-r border-gray-300 flex flex-col justify-between">
       <div className="w-full flex flex-col items-center">
         <div className="flex flex-col items-center w-full border-b border-gray-300 text-center">
           <Link href="/" className="py-5 w-full">

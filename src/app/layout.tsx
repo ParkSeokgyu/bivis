@@ -52,6 +52,10 @@ export default function RootLayout({
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:wght@400;500;600;700&display=swap"
               rel="stylesheet"
             />
+            {/* <link
+              href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet"
+            /> */}
           </head>
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased flex w-full min-h-screen`}

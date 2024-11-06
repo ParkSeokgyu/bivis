@@ -14,6 +14,7 @@ export default function SearchBarListItem({
   isHighlighted: boolean;
   onClick: () => void; // 추가된 onClick prop
 }) {
+  //
   const [, setSelectedAddressLocation] = useRecoilState(
     selectedAddressLocationState
   );
@@ -49,7 +50,7 @@ export default function SearchBarListItem({
         </div>
       </div>
       <StarBorderRounded
-        className="text-3xl text-gray-400 cursor-pointer rounded-lg"
+        className="text-3xl text-gray-400 cursor-pointer rounded-lg "
         aria-label="Favorite"
       />
     </div>

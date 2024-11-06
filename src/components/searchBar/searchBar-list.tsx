@@ -1,8 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
 import SearchBarListItem from "./searchBar-list-item";
-import { KakaoAddressSearchResponse, Document } from "@/utils/types";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Document } from "@/utils/types";
+import { useEffect, useState } from "react";
 import { fetchMoreKakaoAddress } from "@/app/building-info/page";
 import { Button } from "@material-tailwind/react";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
@@ -115,22 +115,29 @@ export default function SearchBarList({ query }: { query: string }) {
   ) {
     // 메시지 스타일링 및 검색 결과 수 포함
     return (
-      <div className="flex flex-col items-center justify-center h-full text-center p-8 bg-white shadow-md rounded-lg">
-        <div className="mb-4">
-          <ExclamationCircleIcon className="w-12 h-12 text-red-500 animate-bounce" />
+      <div className="flex flex-col items-center justify-center h-full  bg-white shadow-md rounded-lg">
+        <div className="w-full h-[40%] flex flex-col items-center justify-center text-center p-8">
+          <div className="mb-4">
+            <ExclamationCircleIcon className="w-12 h-12 text-red-500 animate-bounce" />
+          </div>
+          <h2 className="text-xl font-bold text-gray-800 mb-3">
+            정확한 주소를 입력해 주세요
+          </h2>
+          <p className="text-sm text-gray-600 mb-3 leading-relaxed">
+            입력한 주소에 맞는 결과가 없습니다. <br /> 다시 시도해 주세요.
+          </p>
+          <button
+            onClick={handleClearSearch} // 검색어 초기화
+            className="px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium rounded-lg shadow-sm hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-150 ease-in-out"
+          >
+            검색 초기화
+          </button>
         </div>
-        <h2 className="text-xl font-bold text-gray-800 mb-3">
-          정확한 주소를 입력해 주세요
-        </h2>
-        <p className="text-sm text-gray-600 mb-3 leading-relaxed">
-          입력한 주소에 맞는 결과가 없습니다. <br /> 다시 시도해 주세요.
-        </p>
-        <button
-          onClick={handleClearSearch} // 검색어 초기화
-          className="px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium rounded-lg shadow-sm hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-150 ease-in-out"
-        >
-          검색 초기화
-        </button>
+
+        {/* 광고 위치 */}
+        <div className="w-full h-[60%] bg-gray-100 flex items-center justify-center font-bold text-xl mt-9">
+          구글 및 쿠팡 광고 위치
+        </div>
       </div>
     );
   }
@@ -195,6 +202,11 @@ export default function SearchBarList({ query }: { query: string }) {
           </Button>
         </div>
       )}
+
+      {/* 광고 위치 */}
+      <div className="w-full max-h-screen mt-5 px-2 py-4 bg-gray-100 flex flex-col items-center justify-center font-bold text-xl">
+        <div>구글 및 쿠팡 광고 위치</div>
+      </div>
     </div>
   );
 }

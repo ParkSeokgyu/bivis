@@ -19,23 +19,19 @@ export default function BuildingInfoUI({
   kakaoAddress: KakaoAddressSearchResponse;
   query: string;
 }) {
-  const [, setKakaoAddress] = useRecoilState(kakaoAddressState); // ★
+  // ◆  Recoil 상태에서 주소 검색 결과와 선택된 위치 정보 상태를 가져옴
+  const [, setKakaoAddress] = useRecoilState(kakaoAddressState);
+
+  // ◆  Recoil 상태에서 선택된 위치 정보 상태를 가져옴
   const [, setselectedAddressLocation] = useRecoilState(
     selectedAddressLocationState
-  ); // ★
+  );
 
+  // ◆ 주소 검색 결과와 선택된 위치 초기화
   useEffect(() => {
     setKakaoAddress(kakaoAddress);
     setselectedAddressLocation(null);
   }, [kakaoAddress, setKakaoAddress, setselectedAddressLocation]);
-
-  // // ### 새로고침 시 리셋을 위한 라우터 객체 생성
-  // const router = useRouter(); // ★ 추가
-  // // 새로고침 시 selectedLocation과 query를 초기화
-  // useEffect(() => {
-  //   setSelectedLocation(null); // 상태 초기화
-  //   router.replace("/building-info"); // URL 초기화
-  // }, [router]);
 
   return (
     <div className="flex w-full h-screen">
@@ -48,8 +44,15 @@ export default function BuildingInfoUI({
       </div>
 
       {/* ##### 지도 영역 ##### */}
-      <div className="w-full h-screen">
-        <KakaoMap />
+      <div className="flex flex-col w-full flex-1 h-screen">
+        <div className="w-full h-[90%] relative">
+          <KakaoMap />
+        </div>
+
+        {/* 광고 위치 */}
+        <div className="w-full h-[10%] bg-gray-100 flex items-center justify-center border-t border-gray-300 font-bold text-xl">
+          구글 및 쿠팡 광고 위치
+        </div>
       </div>
     </div>
   );
